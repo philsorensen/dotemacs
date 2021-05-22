@@ -1,0 +1,9 @@
+# Ignore every thing and then specifially allow config files so we don't
+# need to keep up with various created files
+/*
+
+!.gitignore
+!early-init.el
+!init.el
+
+!/init/
