@@ -37,16 +37,28 @@
 
 ;; completions, etc
 
-(use-package counsel
-  :diminish
-  :config
-  (ivy-mode 1)
-  (counsel-mode 1))
+;(use-package counsel
+;  :diminish
+;  :config
+;  (ivy-mode 1)
+;  (counsel-mode 1))
  
-(use-package ivy-rich
-  :after ivy
-  :init
-  (ivy-rich-mode 1))
+;(use-package ivy-rich
+;  :after ivy
+;  :init
+;  (ivy-rich-mode 1))
+
+
+(use-package which-key
+  :defer nil
+  :init (which-key-mode))
+
+(use-package helpful
+  :commands (helpful-callable helpful-variable helpful-key)
+  :bind
+  ([remap describe-function] . helpful-callable)
+  ([remap describe-variable] . helpful-variable)
+  ([remap describe-key] . helpful-key))
 
 
 (provide 'test)
