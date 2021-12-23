@@ -18,6 +18,12 @@
     (error "This Emacs setup only works with version 27.1 and above"))
 
 
+;; Add melpa to package list
+(with-eval-after-load 'package
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t))
+
+
 ;;;; Setup use-package and auto-package-update
 
 ;; Install/setup use-package

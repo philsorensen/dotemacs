@@ -4,21 +4,21 @@
 
 ;;; Commentary:
 
-;; This is the early initialization file.  It is called before the GUI
-;; is initialized and is used to set package.el parameters, frame and
-;; interface defaults, and startup opitimizations.
+;; This is the early initialization file.  It is called before the GUI is
+;; initialized and is used to set package.el initialization parameters, frame
+;; and interface defaults, and startup opitimizations.
 
 ;;; Code:
 
-;; package.el initializtion
+;;;; package.el initialization
 
-(setq package-user-dir (expand-file-name "packages" user-emacs-directory))
+(let ((pas-package-dir (locate-user-emacs-file "packages")))
+  (setq package-user-dir pas-package-dir
+	package-quickstart-file (expand-file-name "quickstart.el"
+						  pas-package-dir)
+	package-quickstart t))
 
-(with-eval-after-load 'package
-  (add-to-list 'package-archives
-	       '("melpa" . "https://melpa.org/packages/") t))
-
-;; Frame/GUI options
+;;;; Frame/GUI options
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -30,7 +30,6 @@
 (setq default-frame-alist
       '((width . 85)
 	(height . 40)
-	(font . "Fira Code Retina")))
-
+	(font . "Fira Code Retina-11")))
 
 ;;; early-init.el ends here
