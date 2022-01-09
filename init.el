@@ -17,6 +17,13 @@
 (if (version< emacs-version "27.1")
     (error "This Emacs setup only works with version 27.1 and above"))
 
+;; Load customization from separate file
+(let ((new-custom-file (expand-file-name "custom.el" user-emacs-directory)))
+  (when (not (file-exists-p new-custom-file))
+    (shell-command (concat "touch " new-custom-file)))
+  (setq custom-file new-custom-file)
+  (load custom-file))
+
 
 ;; Add melpa to package list
 (with-eval-after-load 'package
@@ -64,17 +71,10 @@
 
 ;;;; "Local" overrides.  Not saved in code repository 
 
-;; Load customization from separate file
-(let ((pas-custom-file (expand-file-name "custom.el" user-emacs-directory)))
-  (when (not (file-exists-p pas-custom-file))
-    (shell-command (concat "touch " pas-custom-file)))
-  (setq custom-file pas-custom-file)
-  (load custom-file))
+(let ((local-file (expand-file-name "local.el" user-emacs-directory)))
+  (when (not (file-exists-p local-file))
+    (shell-command (concat "touch " local-file)))
+  (load local-file))
 
-;; Load local overrides
-(let ((pas-local-file (expand-file-name "local.el" user-emacs-directory)))
-  (when (not (file-exists-p pas-local-file))
-    (shell-command (concat "touch " pas-local-file)))
-  (load pas-local-file))
 
 ;;; init.el ends here
