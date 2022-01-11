@@ -25,56 +25,45 @@
   (load custom-file))
 
 
-;; Add melpa to package list
-(with-eval-after-load 'package
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/") t))
+;;;; Setup for packages
 
+;; Setup package.el
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/"))
+      package-archive-priorities '(("gnu" . 100)
+                                   ("melpa" . 10))
+      package-menu-hide-low-priority t)
 
-;;;; Setup use-package and auto-package-update
-
-;; Install/setup use-package
 (if (not (boundp 'package-archive-contents))
   (package-refresh-contents))
 
-(dolist (needed-package '(use-package diminish bind-key))
-  (unless (package-installed-p needed-package)
-    (package-install needed-package)))
+;; Install setup.el
+(unless (package-installed-p 'setup)
+  (package-install 'setup))
 
-(eval-when-compile
-  (require 'use-package))
-(require 'diminish)
-(require 'bind-key)
+;; Setup auto package updates
+(setup (:package auto-package-update)
+  (:option auto-package-update-delete-old-versions t
+           auto-package-update-last-update-day-filename
+             (expand-file-name "last-package-update-day" pas/package-dir)))
 
-(customize-set-variable 'use-package-always-ensure t)
-
-;; Setup package updates
-(use-package auto-package-update
-  :config
-  (setq auto-package-update-delete-old-versions t))
-
-;; Startup hook for packages updates
-(add-hook 'emacs-startup-hook
-	  #'(lambda ()
-	      (package-refresh-contents t)
-	      (run-with-idle-timer 600 t #'auto-package-update-maybe)))
+(run-with-idle-timer 1 nil #'(lambda ()
+                               (package-quickstart-refresh)
+                               (auto-package-update-maybe)))
+(auto-package-update-at-time "13:00")
 
 
+;;;; Load the rest of the configuration from seperate files
 
-;;;; Load the rest of the configuration from broken out files
-
-;; add .emacs.d/init directory to the load path
-(add-to-list 'load-path (expand-file-name "init" user-emacs-directory))
-
-(require 'test)
+;; Add modules directory to the load path
+(add-to-list 'load-path (locate-user-emacs-file "modules"))
 
 
-;;;; "Local" overrides.  Not saved in code repository 
+;;;; "Local" overrides.  Not saved in code repository
 
 (let ((local-file (expand-file-name "local.el" user-emacs-directory)))
   (when (not (file-exists-p local-file))
     (shell-command (concat "touch " local-file)))
   (load local-file))
-
 
 ;;; init.el ends here

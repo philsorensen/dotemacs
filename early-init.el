@@ -12,11 +12,12 @@
 
 ;;;; package.el initialization
 
-(let ((pas-package-dir (locate-user-emacs-file "packages")))
-  (setq package-user-dir pas-package-dir
-	package-quickstart-file (expand-file-name "quickstart.el"
-						  pas-package-dir)
-	package-quickstart t))
+(defvar pas/package-dir (locate-user-emacs-file "packages"))
+
+(setq package-user-dir pas/package-dir
+      package-quickstart-file (expand-file-name "quickstart.el" pas/package-dir)
+      package-quickstart t)
+
 
 ;;;; Frame/GUI options
 
@@ -29,7 +30,7 @@
 
 (setq default-frame-alist
       '((width . 85)
-	(height . 40)
-	(font . "Fira Code Retina-11")))
+        (height . 40)
+        (font . "Fira Code Retina-11")))
 
 ;;; early-init.el ends here
