@@ -20,17 +20,19 @@
 
 
 ;;;; Frame/GUI options
+(setq inhibit-startup-screen t)
 
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-(menu-bar-mode -1)
+(dolist (param '((width . 85)
+                 (height . 40)
+                 (vertical-scroll-bars . nil)
+                 (horizonal-scroll-bars . nil)
+                 (left-fringe . 12)
+                 (right-fringe . 12)
+                 (tool-bar-lines . 0)
+                 (font . "Fira Code Retina-11")
+                 (foreground-color . "#d4d4d4") ;from doom-dark+ theme
+                 (background-color . "#1e1e1e")))
+  (add-to-list 'default-frame-alist param))
 
-(fringe-mode 12)
-
-(setq default-frame-alist
-      '((width . 85)
-        (height . 40)
-        (font . "Fira Code Retina-11")))
 
 ;;; early-init.el ends here

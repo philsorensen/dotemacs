@@ -58,6 +58,8 @@
 ;; Add modules directory to the load path
 (add-to-list 'load-path (locate-user-emacs-file "modules"))
 
+(require 'ui)
+
 
 ;;;; "Local" overrides.  Not saved in code repository
 
