@@ -58,6 +58,7 @@
 ;; Add modules directory to the load path
 (add-to-list 'load-path (locate-user-emacs-file "modules"))
 
+(require 'defaults)
 (require 'ui)
 
 
