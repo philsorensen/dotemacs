@@ -1,4 +1,4 @@
-;;; defaults.el --- basic default settings            -*- lexical-binding: t; -*-
+;;; defaults.el --- basic default settings  -*- lexical-binding: t; -*-
 
 ;; Author: Phillip Sorensen <phil.a.sorensen@gmail.com>
 
