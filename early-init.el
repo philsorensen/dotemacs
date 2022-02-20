@@ -10,6 +10,19 @@
 
 ;;; Code:
 
+;;;; startup optimizations
+
+;; increase GC threshold for faster startup (256MiB)
+(setq gc-cons-threshhold (expt 2 28))
+
+;; set threshhold to back to 2MiB (default 800kB) 
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs loaded in %s seconds with %d garbage collections."
+                     (emacs-init-time)
+                     gcs-done)
+            (setq gc-cons-threshhold (expt 2 21))))
+
 ;;;; package.el initialization
 
 (defvar pas/package-dir (locate-user-emacs-file "packages"))
