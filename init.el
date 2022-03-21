@@ -60,6 +60,7 @@
 
 (require 'defaults)
 (require 'ui)
+(require 'completion)
 
 
 ;;;; "Local" overrides.  Not saved in code repository
@@ -68,5 +69,6 @@
   (when (not (file-exists-p local-file))
     (shell-command (concat "touch " local-file)))
   (load local-file))
+
 
 ;;; init.el ends here
