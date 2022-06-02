@@ -15,7 +15,7 @@
 ;; increase GC threshold for faster startup (256MiB)
 (setq gc-cons-threshhold (expt 2 28))
 
-;; set threshhold to back to 2MiB (default 800kB) 
+;; set threshhold to back to 2MiB (default 800kB) after startup
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message "Emacs loaded in %s seconds with %d garbage collections."
@@ -42,9 +42,9 @@
                  (left-fringe . 12)
                  (right-fringe . 12)
                  (tool-bar-lines . 0)
-                 (font . "Fira Code Retina-11")
-                 (foreground-color . "#d4d4d4") ;from doom-dark+ theme
-                 (background-color . "#1e1e1e")))
+                 (font . "JetBrains Mono-12")
+                 (foreground-color . "#ffffff")
+                 (background-color . "#000000")))
   (add-to-list 'default-frame-alist param))
 
 
