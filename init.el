@@ -2,27 +2,20 @@
 
 ;; Author: Phillip Sorensen <phil.a.sorensen@gmail.com>
 ;; URL: https://github.com/philsorensen/dotemacs
-;; Compatibility: emacs-version >= 27.1
+;; Compatibility: emacs-version >= 28.1
 
 ;;; Commentary:
 
-;; This is the main file for my Emacs setup.  It does the initial
-;; setup of the packaging system and then calls other files for setup
-;; of other pieces.  These initialization files make use of the
-;; 'use-package' package.
+;; This is the main file for my Emacs setup.  It finishes the setup of the
+;; package.el packaging system, then calls other 'modules' for setup of other
+;; parts, and finally loads the customization and local.el files.  The
+;; initialization files make use of the 'setup.el' package.
 
 ;;; Code:
 
 ;; Check compatibility
-(if (version< emacs-version "27.1")
-    (error "This Emacs setup only works with version 27.1 and above"))
-
-;; Load customization from separate file
-(let ((new-custom-file (expand-file-name "custom.el" user-emacs-directory)))
-  (when (not (file-exists-p new-custom-file))
-    (shell-command (concat "touch " new-custom-file)))
-  (setq custom-file new-custom-file)
-  (load custom-file))
+(if (version< emacs-version "28.1")
+    (error "This Emacs setup only works with version 28.1 and above"))
 
 
 ;;;; Setup for packages
@@ -63,12 +56,14 @@
 (require 'completion)
 
 
-;;;; "Local" overrides.  Not saved in code repository
+;;;; "Local" overrides loaded from customization file and local.el
+
+(let ((new-custom-file (expand-file-name "custom.el" user-emacs-directory)))
+  (setq custom-file new-custom-file)
+  (load custom-file t))
 
 (let ((local-file (expand-file-name "local.el" user-emacs-directory)))
-  (when (not (file-exists-p local-file))
-    (shell-command (concat "touch " local-file)))
-  (load local-file))
+  (load local-file t))
 
 
 ;;; init.el ends here

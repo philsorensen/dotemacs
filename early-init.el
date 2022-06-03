@@ -18,10 +18,11 @@
 ;; set threshhold to back to 2MiB (default 800kB) after startup
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (message "Emacs loaded in %s seconds with %d garbage collections."
+            (message "Emacs loaded in %s with %d garbage collections."
                      (emacs-init-time)
                      gcs-done)
             (setq gc-cons-threshhold (expt 2 21))))
+
 
 ;;;; package.el initialization
 
