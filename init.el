@@ -22,13 +22,15 @@
 
 ;; Setup package.el
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/"))
-      package-archive-priorities '(("gnu" . 100)
-                                   ("melpa" . 10))
-      package-menu-hide-low-priority t)
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+                         ("melpa" . "http://melpa.org/packages/"))
+      package-archive-priorities '(("gnu"    . 99)
+                                   ("nongnu" . 80)
+                                   ("melpa"  . 10)))
 
-(if (not (boundp 'package-archive-contents))
-  (package-refresh-contents))
+(package-initialize)
+(if (seq-empty-p package-archive-contents)
+    (package-refresh-contents))
 
 ;; Install setup.el
 (unless (package-installed-p 'setup)
@@ -36,14 +38,11 @@
 
 ;; Setup auto package updates
 (setup (:package auto-package-update)
-  (:option auto-package-update-delete-old-versions t
+  (:option auto-package-update-interval 1
+           auto-package-update-delete-old-versions t
            auto-package-update-last-update-day-filename
-             (expand-file-name "last-package-update-day" pas/package-dir)))
-
-(run-with-idle-timer 1 nil #'(lambda ()
-                               (package-quickstart-refresh)
-                               (auto-package-update-maybe)))
-(auto-package-update-at-time "13:00")
+             (expand-file-name "last-package-update-day" pas/package-dir))
+  (auto-package-update-at-time "13:00"))
 
 
 ;;;; Load the rest of the configuration from seperate files
