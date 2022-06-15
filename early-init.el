@@ -23,6 +23,9 @@
                      gcs-done)
             (setq gc-cons-threshhold (expt 2 21))))
 
+;; load latest version of file
+(setq load-prefer-newer t)
+
 
 ;;;; package.el initialization
 
