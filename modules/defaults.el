@@ -19,6 +19,10 @@
 ;; Use spaces not tabs
 (setq-default indent-tabs-mode nil)
 
+;; Default to auto-fill and set to 80 charaters
+(setq-default fill-column 80
+              auto-fill-function 'do-auto-fill)
+
 ;; Auto-revert
 (setup autorevert
   (:option global-auto-revert-non-file-buffers t
