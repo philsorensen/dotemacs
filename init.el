@@ -54,6 +54,8 @@
 (require 'ui)
 (require 'completion)
 
+(require 'programming)
+
 
 ;;;; "Local" overrides loaded from customization file and local.el
 
