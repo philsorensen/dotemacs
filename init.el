@@ -23,7 +23,7 @@
 ;; Setup package.el
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-                         ("melpa" . "http://melpa.org/packages/"))
+                         ("melpa" . "https://melpa.org/packages/"))
       package-archive-priorities '(("gnu"    . 99)
                                    ("nongnu" . 80)
                                    ("melpa"  . 10)))
