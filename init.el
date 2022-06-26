@@ -2,7 +2,7 @@
 
 ;; Author: Phillip Sorensen <phil.a.sorensen@gmail.com>
 ;; URL: https://github.com/philsorensen/dotemacs
-;; Compatibility: emacs-version >= 28.1
+;; Compatibility: emacs-version >= 27.1
 
 ;;; Commentary:
 
@@ -14,8 +14,8 @@
 ;;; Code:
 
 ;; Check compatibility
-(if (version< emacs-version "28.1")
-    (error "This Emacs setup only works with version 28.1 and above"))
+(if (version< emacs-version "27.1")
+    (error "This Emacs setup only works with version 27.1 and above"))
 
 
 ;;;; Setup for packages
