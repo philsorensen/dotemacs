@@ -40,6 +40,10 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
+(setup (:package corfu)
+  (:option corfu-auto t)
+  (global-corfu-mode))
+
 
 (provide 'completion)
 ;;; completion.el ends here

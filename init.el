@@ -63,6 +63,7 @@
 (require 'ui)
 (require 'completion)
 
+(require 'projects)
 (require 'programming)
 
 
