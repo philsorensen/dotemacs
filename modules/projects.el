@@ -5,18 +5,32 @@
 ;;; Commentary:
 
 ;; This is the setup for projects.  This includes setup for project
-;; settings, version control, global LSP settings. 
+;; settings, version control, global LSP settings, and general setting
+;; related to "projects".
 
 ;;; Code:
 
-;;;; Project settings (pull lastest from ELPA)
+;;;; Project settings (pull latest from ELPA)
 
 (setup (:package project))
 
 
 ;;;; Global LSP settings (using eglot)
 
-(setup (:package eglot))
+(setup (:package eglot)
+  (:bind "M-n" flymake-goto-next-error
+         "M-p" flymake-goto-prev-error))
+
+
+;;;; Add <mode>-local-vars-hook call to hack-local-variables-hook
+;;;; (See: https://stackoverflow.com/questions/5147060).  This is
+;;;; needed to use file-local and dir-local variables in hooks
+
+(defun run-local-vars-mode-hook ()
+  "Run a hook for the major mode after the local variable have been processed."
+  (run-hooks (intern (concat (symbol-name major-mode) "-local-vars-hook"))))
+
+(add-hook 'hack-local-variables-hook 'run-local-vars-mode-hook)
 
 
 (provide 'projects)
