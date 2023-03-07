@@ -5,8 +5,9 @@
 ;;; Commentary:
 
 ;; This is the early initialization file.  It is called before the GUI is
-;; initialized and is used to set package.el initialization parameters, frame
-;; and interface defaults, and startup opitimizations.
+;; initialized and is used to set startup opitimizations, package.el
+;; initialization parameters, frame and interface defaults, and native compile
+;; configuration.
 
 ;;; Code:
 
@@ -31,12 +32,10 @@
 
 (defvar pas/package-dir (locate-user-emacs-file "packages"))
 
-(setq package-user-dir pas/package-dir
-      package-quickstart-file (expand-file-name "quickstart.el" pas/package-dir)
-      package-quickstart t)
+(setq package-user-dir pas/package-dir)
 
 
-;;;; Frame/GUI options
+;;;; frame/GUI options
 (setq inhibit-startup-screen t)
 
 (dolist (param '((width . 85)
@@ -50,6 +49,18 @@
                  (foreground-color . "#ffffff")
                  (background-color . "#000000")))
   (add-to-list 'default-frame-alist param))
+
+
+;;;; native compile configuration
+(when (featurep 'native-compile)
+  (setq native-comp-async-report-warnings-errors nil)
+  (setq native-comp-deferred-compilation t)
+
+  ;; set the the native compile path
+  (if (fboundp 'startup-redirect-eln-cache)
+      (startup-redirect-eln-cache (convert-standard-filename "/tmp/eln-cache"))
+    (add-to-list 'native-comp-eln-load-path
+		 (convert-standard-filename "/tmp/eln-cache/"))))
 
 
 ;;; early-init.el ends here

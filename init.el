@@ -9,7 +9,7 @@
 ;; This is the main file for my Emacs setup.  It finishes the setup of the
 ;; package.el packaging system, then calls other 'modules' for setup of other
 ;; parts, and finally loads the customization and local.el files.  The
-;; initialization files make use of the 'setup.el' package.
+;; initialization files use of the use-package for package configuration.
 
 ;;; Code:
 
@@ -21,6 +21,8 @@
 ;;;; Setup for packages
 
 ;; Setup package.el
+(require 'package)
+
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("melpa" . "https://melpa.org/packages/"))
@@ -28,20 +30,27 @@
                                    ("nongnu" . 80)
                                    ("melpa"  . 10)))
 
-(package-initialize)
-(if (seq-empty-p package-archive-contents)
-    (package-refresh-contents))
+;; Install and configure use-package
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-;; Install setup.el
-(unless (package-installed-p 'setup)
-  (package-install 'setup))
+(setq use-package-compute-statistics t)
+(setq use-package-expand-minimally t)
 
-;; Setup auto package updates
-(setup (:package auto-package-update)
-  (:option auto-package-update-interval 1
-           auto-package-update-delete-old-versions t
-           auto-package-update-last-update-day-filename
-             (expand-file-name "last-package-update-day" pas/package-dir))
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
+(use-package use-package-ensure-system-package)
+
+;; Setup automatic package updates
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 1)
+  (auto-package-update-delete-old-versions t)
+  (auto-package-update-last-update-day-filename
+   (expand-file-name "last-package-update-day" pas/package-dir))
+  :config
+  (auto-package-update-maybe)
   (auto-package-update-at-time "13:00"))
 
 
@@ -50,11 +59,11 @@
 ;; Add modules directory to the load path
 (add-to-list 'load-path (locate-user-emacs-file "modules"))
 
-(require 'defaults)
-(require 'ui)
-(require 'completion)
+;(require 'defaults)
+;(require 'ui)
+;(require 'completion)
 
-(require 'programming)
+;(require 'programming)
 
 
 ;;;; "Local" overrides loaded from customization file and local.el
