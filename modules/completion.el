@@ -12,23 +12,33 @@
 
 ;;;; Minibuffer completions and additional info
 
-(setup (:package vertico)
-  (:option vertico-cycle t)
-  (vertico-mode 1))
+(use-package vertico
+  :init
+  (vertico-mode)
+  :custom
+  (vertico-cycle t))
 
-(setup (:package marginalia)
-  (marginalia-mode 1))
+(use-package marginalia
+  :init
+  (marginalia-mode))
 
-(setup (:package consult))
+(use-package consult)
 
-(setup (:package orderless)
-  (:option completion-styles '(orderless)
-           completion-category-defaults nil
-           completion-category-overrides '((file (styles partial-completion)))))
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
-(setup (:package embark)
-  (:global [remap describe-bindings] #'embark-bindings)
-  (:option prefix-help-command #'embark-prefix-help-command))
+(use-package embark
+  :bind
+  ([remap describe-bindings] . embark-bindings)
+  :custom
+  (prefix-help-command #'embark-prefix-help-command))
+
+(use-package embark-consult
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 
 (provide 'completion)

@@ -61,7 +61,7 @@
 
 (require 'defaults)
 (require 'ui)
-;(require 'completion)
+(require 'completion)
 
 (require 'programming)
 
