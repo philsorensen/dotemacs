@@ -59,11 +59,11 @@
 ;; Add modules directory to the load path
 (add-to-list 'load-path (locate-user-emacs-file "modules"))
 
-;(require 'defaults)
-;(require 'ui)
+(require 'defaults)
+(require 'ui)
 ;(require 'completion)
 
-;(require 'programming)
+(require 'programming)
 
 
 ;;;; "Local" overrides loaded from customization file and local.el

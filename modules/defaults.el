@@ -4,7 +4,7 @@
 
 ;;; Commentary:
 
-;; Set basic defaults for emacs and users
+;; Set basic defaults for emacs
 
 ;;; Code:
 
@@ -24,11 +24,10 @@
               auto-fill-function 'do-auto-fill)
 
 ;; Auto-revert
-(setup autorevert
-  (:option global-auto-revert-non-file-buffers t
-           auto-revert-check-vc-info t)
-  (:with-hook after-init-hook
-    (:hook global-auto-revert-mode)))
+(setq global-auto-revert-non-file-buffers t
+      auto-revert-check-vc-info t)
+
+(add-hook 'after-init-hook #'global-auto-revert-mode)
 
 
 (provide 'defaults)

@@ -16,19 +16,14 @@
 (unless (display-graphic-p)
   (menu-bar-mode 0))
 
-;; set theme (customize fill-column-indicator)
-(setup (:package modus-themes)
-  (:option modus-themes-bold-constructs t
-           modus-themes-italic-constructs t
-           modus-themes-syntax '(yellow-comments))
-  (modus-themes-load-themes)
-  (:with-hook after-init-hook
-    (:hook modus-themes-load-vivendi))
-  (:with-hook modus-themes-after-load-theme-hook
-    (:hook (lambda ()
-             (set-face-attribute
-               'fill-column-indicator nil
-               :background (modus-themes-color 'bg-active))))))
+;; set theme
+(use-package modus-themes
+  :config
+  (setq  modus-themes-bold-constructs t
+         modus-themes-italic-constructs t
+         modus-themes-common-palette-overrides '((comment yellow-cooler)))
+
+  (load-theme 'modus-vivendi t))
 
 
 (provide 'ui)
