@@ -19,8 +19,8 @@
 
 (use-package eglot
   :bind
-  ("M-n" flymake-goto-next-error)
-  ("M-p" flymake-goto-prev-error))
+  ("M-n" . flymake-goto-next-error)
+  ("M-p" . flymake-goto-prev-error))
 
 
 ;;;; Add <mode>-local-vars-hook call to hack-local-variables-hook
