@@ -64,6 +64,7 @@
 (require 'completion)
 
 (require 'projects)
+(require 'config-file)
 (require 'programming)
 
 

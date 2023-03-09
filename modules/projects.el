@@ -12,19 +12,21 @@
 
 ;;;; Project settings (pull latest from ELPA)
 
-(setup (:package project))
+(use-package project)
 
 
 ;;;; Global LSP settings (using eglot)
 
-(setup (:package eglot)
-  (:bind "M-n" flymake-goto-next-error
-         "M-p" flymake-goto-prev-error))
+(use-package eglot
+  :bind
+  ("M-n" flymake-goto-next-error)
+  ("M-p" flymake-goto-prev-error))
 
 
 ;;;; Add <mode>-local-vars-hook call to hack-local-variables-hook
-;;;; (See: https://stackoverflow.com/questions/5147060).  This is
-;;;; needed to use file-local and dir-local variables in hooks
+
+;; (See: https://stackoverflow.com/questions/5147060).  This is
+;; needed to use file-local and dir-local variables in hooks
 
 (defun run-local-vars-mode-hook ()
   "Run a hook for the major mode after the local variable have been processed."
