@@ -40,8 +40,10 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-(setup (:package corfu)
-  (:option corfu-auto t)
+(use-package corfu
+  :custom
+  (corfu-auto t)
+  :init
   (global-corfu-mode))
 
 
