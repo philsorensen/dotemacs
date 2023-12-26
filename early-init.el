@@ -11,6 +11,21 @@
 
 ;;; Code:
 
+(require 'xdg)
+
+
+;;;; set XDG directories for cache, data, and state
+
+(defconst pas--cache-dir
+  (file-name-as-directory (file-name-concat (xdg-cache-home) "emacs")))
+
+(defconst pas--data-dir
+  (file-name-as-directory (file-name-concat (xdg-data-home) "emacs")))
+
+(defconst pas--state-dir
+  (file-name-as-directory (file-name-concat (xdg-state-home) "emacs")))
+
+
 ;;;; startup optimizations
 
 ;; increase GC threshold for faster startup (256MiB)
@@ -30,12 +45,13 @@
 
 ;;;; package.el initialization
 
-(defvar pas/package-dir (locate-user-emacs-file "packages"))
+(defconst pas--package-dir (file-name-concat pas--data-dir "elpa"))
 
-(setq package-user-dir pas/package-dir)
+(setq package-user-dir pas--package-dir)
 
 
 ;;;; frame/GUI options
+
 (setq inhibit-startup-screen t)
 
 (dolist (param '((width . 85)
@@ -52,15 +68,13 @@
 
 
 ;;;; native compile configuration
-(when (featurep 'native-compile)
-  (setq native-comp-async-report-warnings-errors nil)
-  (setq native-comp-deferred-compilation t)
 
-  ;; set the the native compile path
-  (if (fboundp 'startup-redirect-eln-cache)
-      (startup-redirect-eln-cache (convert-standard-filename "/tmp/eln-cache"))
-    (add-to-list 'native-comp-eln-load-path
-		 (convert-standard-filename "/tmp/eln-cache/"))))
+;; set cache to $XDG_CACHE_HOME/emacs/eln-cache
+(startup-redirect-eln-cache
+ (file-name-concat pas--cache-dir "eln-cache"))
+
+;; log errors but don't pop up window
+(setq native-comp-async-report-warnings-errors 'silent)
 
 
 ;;; early-init.el ends here

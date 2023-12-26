@@ -48,7 +48,7 @@
   (auto-package-update-interval 1)
   (auto-package-update-delete-old-versions t)
   (auto-package-update-last-update-day-filename
-   (expand-file-name "last-package-update-day" pas/package-dir))
+   (expand-file-name "last-package-update-day" pas--package-dir))
   :config
   (auto-package-update-maybe)
   (auto-package-update-at-time "13:00"))
@@ -69,11 +69,11 @@
 
 ;;;; "Local" overrides loaded from customization file and local.el
 
-(let ((new-custom-file (expand-file-name "custom.el" user-emacs-directory)))
+(let ((new-custom-file (file-name-concat pas--data-dir "custom.el")))
   (setq custom-file new-custom-file)
   (load custom-file t))
 
-(let ((local-file (expand-file-name "local.el" user-emacs-directory)))
+(let ((local-file (file-name-concat pas--data-dir "local.el")))
   (load local-file t))
 
 
