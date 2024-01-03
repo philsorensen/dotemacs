@@ -45,9 +45,16 @@
 
 ;;;; package.el initialization
 
-(defconst pas--package-dir (file-name-concat pas--data-dir "elpa"))
+;; move package directory to $XDG_DAT_HOME/emacs/elpa
+(setq package-user-dir (file-name-concat pas--data-dir "elpa"))
 
-(setq package-user-dir pas--package-dir)
+;; setup repos and priorities
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+                         ("melpa" . "https://melpa.org/packages/"))
+      package-archive-priorities '(("gnu"    . 99)
+                                   ("nongnu" . 80)
+                                   ("melpa"  . 10)))
 
 
 ;;;; frame/GUI options
@@ -70,8 +77,7 @@
 ;;;; native compile configuration
 
 ;; set cache to $XDG_CACHE_HOME/emacs/eln-cache
-(startup-redirect-eln-cache
- (file-name-concat pas--cache-dir "eln-cache"))
+(startup-redirect-eln-cache (file-name-concat pas--cache-dir "eln-cache"))
 
 ;; log errors but don't pop up window
 (setq native-comp-async-report-warnings-errors 'silent)

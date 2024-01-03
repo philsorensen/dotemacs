@@ -6,10 +6,11 @@
 
 ;;; Commentary:
 
-;; This is the main file for my Emacs setup.  It finishes the setup of the
-;; package.el packaging system, then calls other 'modules' for setup of other
-;; parts, and finally loads the customization and local.el files.  The
-;; initialization files use of the use-package for package configuration.
+;; This is the main file for my Emacs setup.  It sets up periodic
+;; updates for installed packages, configures use-package, and then
+;; pulls in the rest of the configuration from the 'modules'
+;; directory.  Finally it loads any extra local setup from the
+;; customization system (custom.el) and local.el files.
 
 ;;; Code:
 
@@ -18,17 +19,11 @@
     (error "This Emacs setup only works with version 29.1 and above"))
 
 
-;;;; Setup for packages
+;;;; Setup auto-updates and use-package
 
-;; Setup package.el
-(require 'package)
-
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-                         ("melpa" . "https://melpa.org/packages/"))
-      package-archive-priorities '(("gnu"    . 99)
-                                   ("nongnu" . 80)
-                                   ("melpa"  . 10)))
+;; Run package updates after startup and then daily at 13:00
+(run-with-timer 30 nil 'package-upgrade-all)
+(run-at-time "13:00" 86400 'package-upgrade-all)
 
 ;; Install and configure use-package
 (unless (package-installed-p 'use-package)
@@ -41,17 +36,6 @@
 (setq use-package-always-ensure t)
 
 (use-package use-package-ensure-system-package)
-
-;; Setup automatic package updates
-(use-package auto-package-update
-  :custom
-  (auto-package-update-interval 1)
-  (auto-package-update-delete-old-versions t)
-  (auto-package-update-last-update-day-filename
-   (expand-file-name "last-package-update-day" pas--package-dir))
-  :config
-  (auto-package-update-maybe)
-  (auto-package-update-at-time "13:00"))
 
 
 ;;;; Load the rest of the configuration from seperate files
