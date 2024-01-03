@@ -14,8 +14,8 @@
 ;;; Code:
 
 ;; Check compatibility
-(if (version< emacs-version "27.1")
-    (error "This Emacs setup only works with version 27.1 and above"))
+(if (version< emacs-version "29.1")
+    (error "This Emacs setup only works with version 29.1 and above"))
 
 
 ;;;; Setup for packages
