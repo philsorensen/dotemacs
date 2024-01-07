@@ -2,7 +2,7 @@
 
 ;; Author: Phillip Sorensen <phil.a.sorensen@gmail.com>
 ;; URL: https://github.com/philsorensen/dotemacs
-;; Compatibility: emacs-version >= 27.1
+;; Compatibility: emacs-version >= 29.1
 
 ;;; Commentary:
 
@@ -19,22 +19,30 @@
     (error "This Emacs setup only works with version 29.1 and above"))
 
 
-;;;; Setup auto-updates and use-package
+;;;; Setup auto-updates
 
-;; Run package updates after startup and then daily at 13:00
-(run-with-timer 30 nil 'package-upgrade-all)
-(run-at-time "13:00" 86400 'package-upgrade-all)
+;; Run package updates daily at 13:00 or after startup if it is after 13:00
+(run-with-timer 30 nil #'(run-at-time "13:00" 86400 #'package-upgrade-all))
 
-;; Install and configure use-package
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
 
-(setq use-package-compute-statistics t)
-(setq use-package-expand-minimally t)
+;;;; Configure use-package
 
+(require 'use-package)
 (require 'use-package-ensure)
-(setq use-package-always-ensure t)
 
+;; "Production" use-package settings
+(setq use-package-always-defer t
+      use-package-always-ensure t
+      use-package-expand-minimally t)
+
+;; "Debug" settings (when --debug-init)
+(when init-file-debug
+  (setq use-package-verbose t
+        use-package-expand-minimally nil
+        use-package-compute-statistics t
+        debug-on-error t))
+
+;; Add :ensure-system-package keyword
 (use-package use-package-ensure-system-package)
 
 
