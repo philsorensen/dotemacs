@@ -17,13 +17,10 @@
   (menu-bar-mode 0))
 
 ;; set theme
-(use-package modus-themes
-  :config
-  (setq  modus-themes-bold-constructs t
-         modus-themes-italic-constructs t
-         modus-themes-common-palette-overrides '((comment yellow-cooler)))
-
-  (load-theme 'modus-vivendi t))
+(setq  modus-themes-bold-constructs t
+       modus-themes-italic-constructs t
+       modus-themes-common-palette-overrides '((comment yellow-cooler)))
+(load-theme 'modus-vivendi t)
 
 
 (provide 'ui)
