@@ -6,23 +6,16 @@
 
 ;;; Commentary:
 
-;; This is the main file for my Emacs setup.  It sets up periodic
-;; updates for installed packages, configures use-package, and then
-;; pulls in the rest of the configuration from the 'modules'
-;; directory.  Finally it loads any extra local setup from the
-;; customization system (custom.el) and local.el files.
+;; This is the main file for my Emacs setup.  It configures
+;; use-package, and then pulls in the rest of the configuration from
+;; the 'modules' directory.  Finally it loads any extra local setup
+;; from the customization system (custom.el) and local.el files.
 
 ;;; Code:
 
 ;; Check compatibility
 (if (version< emacs-version "29.1")
     (error "This Emacs setup only works with version 29.1 and above"))
-
-
-;;;; Setup auto-updates
-
-;; Run package updates daily at 13:00 or after startup if it is after 13:00
-(run-with-timer 30 nil #'(run-at-time "13:00" 86400 #'package-upgrade-all))
 
 
 ;;;; Configure use-package
