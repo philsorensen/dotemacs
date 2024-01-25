@@ -1,4 +1,5 @@
 ;;; ui.el --- Initialize UI elements  -*- lexical-binding: t; -*-
+
 ;; Author: Phillip Sorensen <phil.a.sorensen@gmail.com>
 
 ;;; Commentary:
@@ -17,10 +18,21 @@
   (menu-bar-mode 0))
 
 ;; set theme
-(setq  modus-themes-bold-constructs t
-       modus-themes-italic-constructs t
-       modus-themes-common-palette-overrides '((comment yellow-cooler)))
-(load-theme 'modus-vivendi t)
+(use-package modus-themes
+  :custom
+  (modus-themes-italic-constructs t)
+  (modus-themes-bold-constructs t)
+  (modus-themes-common-palette-overrides '((comment yellow-cooler))))
+
+(load-theme 'modus-vivendi :no-confirm)
+
+;; Make help look better
+(use-package helpful
+  :bind (("C-h f" . helpful-callable)
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)
+         ("C-h x" . helpful-command)))
+
 
 
 (provide 'ui)
