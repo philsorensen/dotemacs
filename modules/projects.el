@@ -12,7 +12,14 @@
 
 ;;;; Project settings (pull latest from ELPA)
 
-(use-package project)
+(use-package project
+  :custom
+  (project-list-file (file-name-concat pas--state-dir "projects")))
+
+;; Add project to modeline
+(use-package project-mode-line-tag
+  :init
+  (project-mode-line-tag-mode 1))
 
 
 ;;;; Global LSP settings (using eglot)
